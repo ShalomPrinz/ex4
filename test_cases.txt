@@ -1,0 +1,143 @@
+- name: On start: exit
+  input: |
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: On start: invalid number
+  input: |
+7 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please choose a task number from the list.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Robot Paths: minimal example
+  input: |
+1 1 2 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the coordinates of the robot (column, row):
+The total number of paths the robot can take to reach home is: 3
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Robot Paths: edge case 0
+  input: |
+1 0 0 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the coordinates of the robot (column, row):
+The total number of paths the robot can take to reach home is: 1
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Robot Paths: edge case negative
+  input: |
+1 -1 0 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the coordinates of the robot (column, row):
+The total number of paths the robot can take to reach home is: 0
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Robot Paths: edge case one zero
+  input: |
+1 3 0 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the coordinates of the robot (column, row):
+The total number of paths the robot can take to reach home is: 1
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Robot Paths: big example
+  input: |
+1 15 12 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the coordinates of the robot (column, row):
+The total number of paths the robot can take to reach home is: 17383860
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
