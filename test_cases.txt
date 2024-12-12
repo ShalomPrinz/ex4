@@ -141,3 +141,118 @@ Choose an option:
 5. Crossword Generator
 6. Exit
 Goodbye!
+
+- name: Human Pyramid: minimal example
+  input: |
+2
+51.18
+55.90 131.25
+69.05 133.66 132.82
+53.43 139.61 134.06 121.63
+72.31 108.62 171.24 151.33  93.32
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the weights of the cheerleaders:
+The total weight on each cheerleader is:
+51.18
+81.49 156.84
+109.80 252.83 211.24
+108.33 320.92 366.09 227.25
+126.47 323.24 514.75 448.00 206.95
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Human Pyramid: edge case 0
+  input: |
+2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the weights of the cheerleaders:
+The total weight on each cheerleader is:
+0.00
+0.00 0.00
+0.00 0.00 0.00
+0.00 0.00 0.00 0.00
+0.00 0.00 0.00 0.00 0.00
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Human Pyramid: edge case negative
+  input: |
+2 -1 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the weights of the cheerleaders:
+Negative weights are not supported.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Human Pyramid: big example
+  input: |
+2
+5121.85
+8090.62 13125.40
+69052.34 13366.89 13282.74
+53434.56 13961.89 13406.27 12163.11
+72313.23 10862.74 17124.95 15133.62 93325.50
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the weights of the cheerleaders:
+The total weight on each cheerleader is:
+5121.85
+10651.54 15686.33
+74378.12 26535.82 21125.90
+90623.62 64418.86 37237.13 22726.06
+117625.03 88383.98 67952.95 45115.22 104688.53
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
