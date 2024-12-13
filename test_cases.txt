@@ -256,3 +256,305 @@ Choose an option:
 5. Crossword Generator
 6. Exit
 Goodbye!
+
+- name: Parenthesis: minimal true
+  input: |
+3 {}
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: minimal closer false
+  input: |
+3 }
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: minimal opener false
+  input: |
+3 {
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: input style #2
+  input: |
+3
+{
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: input style #3
+  input: |
+3{
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: input style #4
+  input: |
+3 }abc
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: slightly bigger true
+  input: |
+3 {[]}
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: slightly bigger false
+  input: |
+3 {[}]
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: slightly smarter false
+  input: |
+3 {[]>
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: big true
+  input: |
+3 ([{}](<>[{}]))[]({})
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: big true #2
+  input: |
+3 [({ds}aewqr){<a>}dsaf]()
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: biggest true
+  input: |
+3
+{({([(({}[({([([([((([[{}]])))])19823]asdf)dls;fl;adsf])((([{{{[]}}}])))})]))])})}
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: biggest, but false
+  input: |
+3
+{({([(({}[({([([([((([[{}]])))])19823]asdf)dls;fl;adsf])((([{{{[}}}])))})]))])})}
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!

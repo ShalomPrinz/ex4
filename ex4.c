@@ -9,6 +9,11 @@ Assignment:
 
 // Cheerleaders human pyramid dimensions, e.g. 5 means 5x5 pyramid
 #define CL_DIMENSIONS 5
+/*
+ Parentheses validation:
+ This is not the first input char. Not using a boolean because we need the actual char on first scanned char
+*/
+#define NO_FIRST_CHAR '\0'
 
 // Task Defined Functions
 void task1_robot_paths();
@@ -64,9 +69,9 @@ int main() {
  Calculates valid paths for the robot to get home (0, 0), Only left (column - 1) and down (row - 1) allowed
 */
 int calculatePathsCount(int column, int row) {
-    // Reached invalid column or invalid row values, path is not counted
+    // Recursion stopping condition #1: Reached invalid column or invalid row values, path is not counted
     if (column < 0 || row < 0) return 0;
-    // Reached robot's home, count path
+    // Recursion stopping condition #2: Reached robot's home, count path as a valid path
     if (column == 0 && row == 0) return 1;
 
     // Robot is at the most left column, so he must move down
@@ -97,7 +102,7 @@ int isValidPColumn(int column, int row) {
     cheerleader weight = her own weight + .5 * (the total weight of the two cheerleaders above her)
 */
 float calculateSupportedWeight(float weights[CL_DIMENSIONS][CL_DIMENSIONS], int row, int column) {
-    // Reached invalid column or invalid row values, no cheerleader weight to return
+    // Recursion stopping condition: Reached invalid column or invalid row values, no cheerleader weight to return
     if (column < 0 || row < 0 || !isValidPColumn(column, row)) return 0;
 
     // Calculates the supported weight of the left parent of current cheerleader
@@ -135,8 +140,93 @@ void task2_human_pyramid() {
     }
 }
 
+/*
+ Returns the closer parenthesis match of given opener parenthesis, or '\0' if it's not a valid opener
+*/
+char getCloserMatch(char opener) {
+    switch (opener) {
+        case '(':
+            return ')';
+        case '[':
+            return ']';
+        case '{':
+            return '}';
+        case '<':
+            return '>';
+        default:
+            return '\0';
+    }
+}
+
+/*
+ Returns whether given char is a valid opener parenthesis
+*/
+int isOpenParenthesis(char c) {
+    return c == '(' || c == '[' || c == '{' || c == '<';
+}
+
+/*
+ Returns whether given char is a valid closer parenthesis
+*/
+int isCloseParenthesis(char c) {
+    return c == ')' || c == ']' || c == '}' || c == '>';
+}
+
+/*
+ Gets:
+    - firstChar: scanned before calling recursion. The recursion always calls itself with firstChar = NO_FIRST_CHAR
+    - opener: current opener parenthesis to validate a match closer
+ Reading unlimited chars from stdin until user enters '\n' char.
+ Validates given chars compose a balanced parentheses string.
+ Returns 1 for a balanced string, and 0 otherwise.
+*/
+int validateParenthesisBalance(char firstChar, char opener) {
+    char currentChar = firstChar;
+    if (firstChar == NO_FIRST_CHAR) {
+        scanf("%c", &currentChar);
+    }
+
+    // Recursion stopping condition
+    if (currentChar == '\n') {
+        return opener == '\0';
+    }
+
+    /*
+     Reached an opener parenthesis. Validates in that order:
+        - currentChar (= new opener) has a closer match
+        - "opener" parameter has a closer match
+    */
+    if (isOpenParenthesis(currentChar))
+        return validateParenthesisBalance(NO_FIRST_CHAR, currentChar) &&
+            validateParenthesisBalance(NO_FIRST_CHAR, opener);
+
+    // Reached a closer parenthesis. Validates "opener" parameter matches current closer
+    if (isCloseParenthesis(currentChar)) {
+        if (currentChar == getCloserMatch(opener)) return 1;
+        /*
+         Reaching a wrong closer means no balance, so we might return 0 before input string is fully read.
+         We might have extra chars in input before '\n', so we need to clean the buffer.
+        */
+        while (getchar() != '\n') {}
+        return 0;
+    }
+
+    // Reached a not parenthesis char, moves on to the next char
+    return validateParenthesisBalance(NO_FIRST_CHAR, opener);
+}
+
 void task3_parenthesis_validator() {
-    // Todo
+    printf("Please enter a term for validation:\n");
+    // Scans firstChar outside of recursion in order to ignore spaces and new lines
+    char firstChar;
+    scanf(" %c", &firstChar);
+
+    // Prints according to task logic
+    if (validateParenthesisBalance(firstChar, '\0'))
+        printf("The parentheses are balanced correctly.\n");
+    else {
+        printf("The parentheses are not balanced correctly.\n");
+    }
 }
 
 void task4_queens_battle() {
