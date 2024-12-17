@@ -326,7 +326,7 @@ Choose an option:
 6. Exit
 Goodbye!
 
-- name: Parenthesis: input style #2
+- name: Parenthesis: input style #2 false
   input: |
 3
 {
@@ -350,7 +350,31 @@ Choose an option:
 6. Exit
 Goodbye!
 
-- name: Parenthesis: input style #3
+- name: Parenthesis: input style #2 true
+  input: |
+3
+{}
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: input style #3 false
   input: |
 3{
 6
@@ -373,7 +397,30 @@ Choose an option:
 6. Exit
 Goodbye!
 
-- name: Parenthesis: input style #4
+- name: Parenthesis: input style #3 true
+  input: |
+3{}
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: input style #4 false
   input: |
 3 }abc
 6
@@ -387,6 +434,29 @@ Choose an option:
 6. Exit
 Please enter a term for validation:
 The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Parenthesis: input style #4 true
+  input: |
+3 {ab}c
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter a term for validation:
+The parentheses are balanced correctly.
 Choose an option:
 1. Robot Paths
 2. The Human Pyramid
@@ -550,6 +620,279 @@ Choose an option:
 6. Exit
 Please enter a term for validation:
 The parentheses are not balanced correctly.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: edge case 0 dimension
+  input: |
+4 0
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 0*0 puzzle board:
+Solution:
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: minimal solution
+  input: |
+4 1
+A
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 1*1 puzzle board:
+Solution:
+X
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: 2 dimension unsolved
+  input: |
+4 2
+AA
+BB
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 2*2 puzzle board:
+This puzzle cannot be solved.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: 3 dimension unsolved
+  input: |
+4 3
+AAB
+CAB
+CCB
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 3*3 puzzle board:
+This puzzle cannot be solved.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: 4 dimension unsolved
+  input: |
+4 4
+AAAA
+ABBB
+ACCC
+DDDD
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 4*4 puzzle board:
+This puzzle cannot be solved.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: 4 dimension solution
+  input: |
+4 4
+AABA
+AABB
+ACCC
+DDDD
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 4*4 puzzle board:
+Solution:
+* * X *
+X * * *
+* * * X
+* X * *
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: 8 dimension unsolved
+  input: |
+4 8
+XXXXXXXX
+X**CCCCC
+X****CCC
+XDDDDDDC
+XDDDDDDC
+X#FFF!!C
+##FFF!!C
+##FFFF!C
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 8*8 puzzle board:
+This puzzle cannot be solved.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: 10 dimension solution
+  input: |
+4 10
+AABBCCCCCD
+ABBECCCCDD
+ABEEECCFFF
+BBECCCGGGF
+CCECCGGGGG
+CCCCGGGGHG
+CCCHHHHGHH
+CCHHHHHHHH
+CIIIIHJJHJ
+IIIIHHHJJJ
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 10*10 puzzle board:
+Solution:
+* * * X * * * * * *
+* * * * * * * * X *
+X * * * * * * * * *
+* * * * * * * * * X
+* * X * * * * * * *
+* * * * * X * * * *
+* X * * * * * * * *
+* * * * * * X * * *
+* * * * X * * * * *
+* * * * * * * X * *
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: 10 dimension unsolved
+  input: |
+4 10
+AAAAAABBBB
+AAAAAABBBB
+AAAAAABBBB
+CCCCCDEEEE
+CCCCCDEEEE
+CCCCCDEEEE
+FFFFFGGGGG
+FFFFFGGGGG
+FFFFFKKKKK
+HHHHHIIIII
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 10*10 puzzle board:
+This puzzle cannot be solved.
 Choose an option:
 1. Robot Paths
 2. The Human Pyramid

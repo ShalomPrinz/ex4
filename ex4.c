@@ -9,11 +9,19 @@ Assignment:
 
 // Cheerleaders human pyramid dimensions, e.g. 5 means 5x5 pyramid
 #define CL_DIMENSIONS 5
+
 /*
  Parentheses validation:
  This is not the first input char. Not using a boolean because we need the actual char on first scanned char
 */
 #define NO_FIRST_CHAR '\0'
+
+// Assuming max Queens Battle grid dimension is 20
+#define MAX_QB_DIM 20
+
+// Queens Battle solution board symbols
+#define EMPTY_POS '*'
+#define QUEEN_POS 'X'
 
 // Task Defined Functions
 void task1_robot_paths();
@@ -69,9 +77,9 @@ int main() {
  Calculates valid paths for the robot to get home (0, 0), Only left (column - 1) and down (row - 1) allowed
 */
 int calculatePathsCount(int column, int row) {
-    // Recursion stopping condition #1: Reached invalid column or invalid row values, path is not counted
+    // Base case #1: Reached invalid column or invalid row values, path is not counted
     if (column < 0 || row < 0) return 0;
-    // Recursion stopping condition #2: Reached robot's home, count path as a valid path
+    // Base case #2: Reached robot's home, count path as a valid path
     if (column == 0 && row == 0) return 1;
 
     // Robot is at the most left column, so he must move down
@@ -102,7 +110,7 @@ int isValidPColumn(int column, int row) {
     cheerleader weight = her own weight + .5 * (the total weight of the two cheerleaders above her)
 */
 float calculateSupportedWeight(float weights[CL_DIMENSIONS][CL_DIMENSIONS], int row, int column) {
-    // Recursion stopping condition: Reached invalid column or invalid row values, no cheerleader weight to return
+    // Base case: Reached invalid column or invalid row values, no cheerleader weight to return
     if (column < 0 || row < 0 || !isValidPColumn(column, row)) return 0;
 
     // Calculates the supported weight of the left parent of current cheerleader
@@ -186,7 +194,7 @@ int validateParenthesisBalance(char firstChar, char opener) {
         scanf("%c", &currentChar);
     }
 
-    // Recursion stopping condition
+    // Base case
     if (currentChar == '\n') {
         return opener == '\0';
     }
@@ -229,8 +237,123 @@ void task3_parenthesis_validator() {
     }
 }
 
+/*
+ Return true if there is a queen in the previous column adjacent rows and false otherwise
+*/
+int isAdjacentToQueen(char board[][MAX_QB_DIM], int row, int column) {
+    if (column == 0) return 0;
+    return
+        (row > 0 && board[row - 1][column - 1] == QUEEN_POS) ||
+        board[row][column - 1] == QUEEN_POS ||
+        board[row + 1][column - 1] == QUEEN_POS;
+}
+
+/*
+ Recursion until a queen is found in row or until no queen is found up to column
+*/
+int isRowAvailable(char board[][MAX_QB_DIM], int row, int column, int index) {
+    // Base case #1: reached current column => no other queen in row
+    if (index == column) return 1;
+    // Base case #2: found a queen in given row
+    if (board[row][index] == QUEEN_POS) return 0;
+    return isRowAvailable(board, row, column, index + 1);
+}
+
+/*
+ Return whether position is available based on queens positions in board
+*/
+int isAvailablePosition(char board[][MAX_QB_DIM], int row, int column) {
+    return isRowAvailable(board, row, column, 0) && !isAdjacentToQueen(board, row, column);
+}
+
+/*
+ Return whether given region is already visited
+*/
+int isVisitedRegion(char visitedRegions[], char region, int visitedCount, int index) {
+    // Base case #1: region doesn't match any of visitedRegions, add it to visitedRegions
+    if (index == visitedCount) {
+        visitedRegions[index] = region;
+        return 0;
+    }
+
+    // Base case #2: region is found in visitedRegions
+    if (visitedRegions[index] == region) return 1;
+    return isVisitedRegion(visitedRegions, region, visitedCount, index + 1);
+}
+
+/*
+ Return a given column queen's row
+ Assuming there must be a queen in given column
+*/
+int getQueenRow(char board[][MAX_QB_DIM], int row, int column) {
+    if (board[row][column] == QUEEN_POS) return row;
+    return getQueenRow(board, row + 1, column);
+}
+
+/*
+ Solve queens battle. Start at 0, 0 and move according to the rules:
+ - if board[row][column] is valid, move on to next column to find a valid row
+ - if no row is valid in column, backtrack to previous column until a valid position is found
+*/
+int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], char board[][MAX_QB_DIM],
+    int dimension, int row, int column) {
+    // Base case: placed queens by the rules in each column
+    if (column == dimension) return 1;
+
+    // No valid position in current column, backtrack to previous column
+    if (row == dimension) {
+        // Base case: tried all possibilities and no valid solution is found
+        if (column == 0) return 0;
+
+        // Backtrack: try again with previous column, pick another row bigger than previous row picked
+        int prevColumn = column - 1;
+        int prevQueenRow = getQueenRow(board, 0, prevColumn);
+        board[prevQueenRow][prevColumn] = EMPTY_POS;
+        return solver(regionsBoard, visitedRegions, board, dimension, prevQueenRow + 1, prevColumn);
+    }
+
+    // Validate position is a valid queen position
+    if (!isAvailablePosition(board, row, column) ||
+        isVisitedRegion(visitedRegions, regionsBoard[row][column], column, 0))
+        // Try next row in column
+        return solver(regionsBoard, visitedRegions, board, dimension, row + 1, column);
+
+    // Valid position is found, put a queen there and move on to next column
+    board[row][column] = QUEEN_POS;
+    return solver(regionsBoard, visitedRegions, board, dimension, 0, column + 1);
+}
+
 void task4_queens_battle() {
-    // Todo
+    printf("Please enter the board dimensions:\n");
+    int dimension;
+    scanf("%d", &dimension);
+    printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
+
+    char board[MAX_QB_DIM][MAX_QB_DIM]; // Solution board
+
+    char regionsBoard[MAX_QB_DIM][MAX_QB_DIM];
+    for (int row = 0; row < dimension; row++) {
+        for (int column = 0; column < dimension; column++) {
+            scanf(" %c", &regionsBoard[row][column]);
+        }
+    }
+
+    char visitedRegions[MAX_QB_DIM];
+    // Try to find a solution for given regionsBoard and given dimension
+    if (dimension != 0 && !solver(regionsBoard, visitedRegions, board, dimension, 0, 0)) {
+        printf("This puzzle cannot be solved.\n");
+        return;
+    }
+
+    // Found a valid solution, print according to task format
+    printf("Solution:\n");
+    for (int row = 0; row < dimension; row++) {
+        for (int column = 0; column < dimension; column++) {
+            char value = board[row][column] == QUEEN_POS ? QUEEN_POS : EMPTY_POS;
+            printf("%c ", value);
+        }
+        printf("\n");
+    }
 }
 
 void task5_crossword_generator() {
