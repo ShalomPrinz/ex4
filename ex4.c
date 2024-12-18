@@ -13,8 +13,9 @@ Assignment:
 /*
  Parentheses validation:
  This is not the first input char. Not using a boolean because we need the actual char on first scanned char
+ Needed in order to support "3{" style input, when no whitespaces at all after "3"
 */
-#define NO_FIRST_CHAR '\0'
+#define NOT_FIRST_CHAR '\0'
 
 // Assuming max Queens Battle grid dimension is 20
 #define MAX_QB_DIM 20
@@ -24,11 +25,39 @@ Assignment:
 #define QUEEN_POS 'X'
 
 // Task Defined Functions
-void task1_robot_paths();
-void task2_human_pyramid();
-void task3_parenthesis_validator();
-void task4_queens_battle();
-void task5_crossword_generator();
+
+void robotPaths();
+void humanPyramid();
+void parenthesisValidator();
+void queensBattle();
+void crosswordGenerator();
+
+// Task Logic
+
+// Robot Paths
+int calculatePathsCount(int column, int row);
+
+// Human Pyramid
+int isValidPColumn(int column, int row);
+float calculateSupportedWeight(float weights[][CL_DIMENSIONS], int row, int column);
+
+// Parenthesis Validator
+char getCloserMatch(char opener);
+int isOpenParenthesis(char c);
+int isCloseParenthesis(char c);
+int validateParenthesisBalance(char firstChar, char opener);
+
+// Queens Battle
+int isAdjacentToQueen(char board[][MAX_QB_DIM], int row, int column);
+int isRowAvailable(char board[][MAX_QB_DIM], int row, int column, int index);
+int isAvailablePosition(char board[][MAX_QB_DIM], int row, int column);
+int isVisitedRegion(char visitedRegions[], char region, int visitedCount, int index);
+int getQueenRow(char board[][MAX_QB_DIM], int row, int column);
+int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], char board[][MAX_QB_DIM],
+    int dimension, int row, int column);
+
+// Crossword Generator
+// TODO
 
 int main() {
     int task = -1;
@@ -47,19 +76,19 @@ int main() {
                     printf("Goodbye!\n");
                     break;
                 case 1:
-                    task1_robot_paths();
+                    robotPaths();
                     break;
                 case 2:
-                    task2_human_pyramid();
+                    humanPyramid();
                     break;
                 case 3:
-                    task3_parenthesis_validator();
+                    parenthesisValidator();
                     break;
                 case 4:
-                    task4_queens_battle();
+                    queensBattle();
                     break;
                 case 5:
-                    task5_crossword_generator();
+                    crosswordGenerator();
                     break;
                 default:
                     printf("Please choose a task number from the list.\n");
@@ -90,7 +119,7 @@ int calculatePathsCount(int column, int row) {
     return calculatePathsCount(column, row - 1) + calculatePathsCount(column - 1, row);
 }
 
-void task1_robot_paths() {
+void robotPaths() {
     printf("Please enter the coordinates of the robot (column, row):\n");
     int column, row;
     scanf("%d %d", &column, &row);
@@ -109,7 +138,7 @@ int isValidPColumn(int column, int row) {
  Calculates a given cheerleader at position (row, column) supported weight by the following formula:
     cheerleader weight = her own weight + .5 * (the total weight of the two cheerleaders above her)
 */
-float calculateSupportedWeight(float weights[CL_DIMENSIONS][CL_DIMENSIONS], int row, int column) {
+float calculateSupportedWeight(float weights[][CL_DIMENSIONS], int row, int column) {
     // Base case: Reached invalid column or invalid row values, no cheerleader weight to return
     if (column < 0 || row < 0 || !isValidPColumn(column, row)) return 0;
 
@@ -118,10 +147,10 @@ float calculateSupportedWeight(float weights[CL_DIMENSIONS][CL_DIMENSIONS], int 
     // Calculates the supported weight of the right parent of current cheerleader
     float rightParentWeight = calculateSupportedWeight(weights, row - 1, column);
     // Calculates current cheerleader supported weight by given formula
-    return weights[row][column] + (float) .5 * (leftParentWeight + rightParentWeight);
+    return (float) .5 * (leftParentWeight + rightParentWeight) + weights[row][column];
 }
 
-void task2_human_pyramid() {
+void humanPyramid() {
     printf("Please enter the weights of the cheerleaders:\n");
 
     // Scan weights pyramid inputs
@@ -190,12 +219,13 @@ int isCloseParenthesis(char c) {
 */
 int validateParenthesisBalance(char firstChar, char opener) {
     char currentChar = firstChar;
-    if (firstChar == NO_FIRST_CHAR) {
+    if (firstChar == NOT_FIRST_CHAR) {
         scanf("%c", &currentChar);
     }
 
-    // Base case
+    // Base case: reached '\n' - no more chars to read
     if (currentChar == '\n') {
+        // Validates no more openers to close
         return opener == '\0';
     }
 
@@ -205,8 +235,8 @@ int validateParenthesisBalance(char firstChar, char opener) {
         - "opener" parameter has a closer match
     */
     if (isOpenParenthesis(currentChar))
-        return validateParenthesisBalance(NO_FIRST_CHAR, currentChar) &&
-            validateParenthesisBalance(NO_FIRST_CHAR, opener);
+        return validateParenthesisBalance(NOT_FIRST_CHAR, currentChar) &&
+            validateParenthesisBalance(NOT_FIRST_CHAR, opener);
 
     // Reached a closer parenthesis. Validates "opener" parameter matches current closer
     if (isCloseParenthesis(currentChar)) {
@@ -214,16 +244,17 @@ int validateParenthesisBalance(char firstChar, char opener) {
         /*
          Reaching a wrong closer means no balance, so we might return 0 before input string is fully read.
          We might have extra chars in input before '\n', so we need to clean the buffer.
+         This is a scan technique to read all chars until '\n' and then read it too.
         */
-        while (getchar() != '\n') {}
+        scanf("%*[^\n] ");
         return 0;
     }
 
     // Reached a not parenthesis char, moves on to the next char
-    return validateParenthesisBalance(NO_FIRST_CHAR, opener);
+    return validateParenthesisBalance(NOT_FIRST_CHAR, opener);
 }
 
-void task3_parenthesis_validator() {
+void parenthesisValidator() {
     printf("Please enter a term for validation:\n");
     // Scans firstChar outside of recursion in order to ignore spaces and new lines
     char firstChar;
@@ -323,7 +354,7 @@ int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], char board[][
     return solver(regionsBoard, visitedRegions, board, dimension, 0, column + 1);
 }
 
-void task4_queens_battle() {
+void queensBattle() {
     printf("Please enter the board dimensions:\n");
     int dimension;
     scanf("%d", &dimension);
@@ -356,6 +387,6 @@ void task4_queens_battle() {
     }
 }
 
-void task5_crossword_generator() {
+void crosswordGenerator() {
     // Todo
 }

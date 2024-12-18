@@ -202,6 +202,33 @@ Choose an option:
 6. Exit
 Goodbye!
 
+- name: Human Pyramid: edge case partial 0
+  input: |
+2 0 15 0 0 0 0 20 0 0 0 0 0 0 0 80 6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the weights of the cheerleaders:
+The total weight on each cheerleader is:
+0.00
+15.00 0.00
+7.50 7.50 0.00
+23.75 7.50 3.75 0.00
+11.88 15.62 5.62 1.88 80.00
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
 - name: Human Pyramid: edge case negative
   input: |
 2 -1 6
