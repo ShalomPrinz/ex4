@@ -48,13 +48,7 @@ int isCloseParenthesis(char c);
 int validateParenthesisBalance(char firstChar, char opener);
 
 // Queens Battle
-int isAdjacentToQueen(char board[][MAX_QB_DIM], int row, int column);
-int isRowAvailable(char board[][MAX_QB_DIM], int row, int column, int index);
-int isAvailablePosition(char board[][MAX_QB_DIM], int row, int column);
-int isVisitedRegion(char visitedRegions[], char region, int visitedCount, int index);
-int getQueenRow(char board[][MAX_QB_DIM], int row, int column);
-int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], char board[][MAX_QB_DIM],
-    int dimension, int row, int column);
+// TODO
 
 // Crossword Generator
 // TODO
@@ -271,30 +265,28 @@ void parenthesisValidator() {
 /*
  Return true if there is a queen in the previous column adjacent rows and false otherwise
 */
-int isAdjacentToQueen(char board[][MAX_QB_DIM], int row, int column) {
+int isAdjacentToQueen(int queenRows[], int row, int column) {
     if (column == 0) return 0;
-    return
-        (row > 0 && board[row - 1][column - 1] == QUEEN_POS) ||
-        board[row][column - 1] == QUEEN_POS ||
-        board[row + 1][column - 1] == QUEEN_POS;
+    int prevQueenRow = queenRows[column - 1];
+    return prevQueenRow == row - 1 || prevQueenRow == row || prevQueenRow == row + 1;
 }
 
 /*
  Recursion until a queen is found in row or until no queen is found up to column
 */
-int isRowAvailable(char board[][MAX_QB_DIM], int row, int column, int index) {
+int isRowAvailable(int queenRows[], int row, int column, int index) {
     // Base case #1: reached current column => no other queen in row
     if (index == column) return 1;
     // Base case #2: found a queen in given row
-    if (board[row][index] == QUEEN_POS) return 0;
-    return isRowAvailable(board, row, column, index + 1);
+    if (queenRows[index] == row) return 0;
+    return isRowAvailable(queenRows, row, column, index + 1);
 }
 
 /*
  Return whether position is available based on queens positions in board
 */
-int isAvailablePosition(char board[][MAX_QB_DIM], int row, int column) {
-    return isRowAvailable(board, row, column, 0) && !isAdjacentToQueen(board, row, column);
+int isAvailablePosition(int queenRows[], int row, int column) {
+    return isRowAvailable(queenRows, row, column, 0) && !isAdjacentToQueen(queenRows, row, column);
 }
 
 /*
@@ -314,44 +306,74 @@ int isVisitedRegion(char visitedRegions[], char region, int visitedCount, int in
 
 /*
  Return a given column queen's row
- Assuming there must be a queen in given column
 */
-int getQueenRow(char board[][MAX_QB_DIM], int row, int column) {
-    if (board[row][column] == QUEEN_POS) return row;
-    return getQueenRow(board, row + 1, column);
+int getQueenRow(int queenRows[], int column) {
+    return queenRows[column];
+}
+
+/*
+ Determines next available row in column.
+ if there is such a row, return it. otherwise, return dimension as row value (= no available row)
+*/
+int getNextAvailableRow(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], int queenRows[],
+    int dimension, int row, int column) {
+
+    // Base case: no available row in column
+    if (row == dimension)
+        return dimension;
+
+    // Determines whether (row, column) is a valid queen position
+    if (isAvailablePosition(queenRows, row, column) &&
+        !isVisitedRegion(visitedRegions, regionsBoard[row][column], column, 0))
+        return row;
+
+    return getNextAvailableRow(regionsBoard, visitedRegions, queenRows, dimension, row + 1, column);
 }
 
 /*
  Solve queens battle. Start at 0, 0 and move according to the rules:
- - if board[row][column] is valid, move on to next column to find a valid row
+ - if (row, column) is a valid queen row, put a queen there and move on to next column to find a valid row
  - if no row is valid in column, backtrack to previous column until a valid position is found
 */
-int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], char board[][MAX_QB_DIM],
+int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], int queenRows[],
     int dimension, int row, int column) {
-    // Base case: placed queens by the rules in each column
+
+    // Base case #1: successfully placed all queens by the rules in each column
     if (column == dimension) return 1;
 
-    // No valid position in current column, backtrack to previous column
-    if (row == dimension) {
-        // Base case: tried all possibilities and no valid solution is found
-        if (column == 0) return 0;
+    // Get available row in given column, with row as initial row to check
+    int availableRow = getNextAvailableRow(regionsBoard, visitedRegions, queenRows, dimension, row, column);
+    /*
+     Get available row in next column, with 0 as initial row to check.
+     Optimization in order to reduce recursion depth.
+     if no available row in next column, behave like availableRow is actually not available
+    */
+    int nextAvailableRow = getNextAvailableRow(regionsBoard, visitedRegions, queenRows, dimension, 0, column + 1);
 
-        // Backtrack: try again with previous column, pick another row bigger than previous row picked
-        int prevColumn = column - 1;
-        int prevQueenRow = getQueenRow(board, 0, prevColumn);
-        board[prevQueenRow][prevColumn] = EMPTY_POS;
-        return solver(regionsBoard, visitedRegions, board, dimension, prevQueenRow + 1, prevColumn);
+    /*
+     Validate queen position (availableRow, column):
+        - availableRow must be a valid row, and:
+        - if it's the first column, optimization is irrelevant. put a queen there
+        - otherwise next column's available row must be a valid row
+    */
+    if (availableRow != dimension && (column == 0 || nextAvailableRow != dimension)) {
+        queenRows[column] = availableRow;
+        return solver(regionsBoard, visitedRegions, queenRows, dimension, 0, column + 1);
     }
 
-    // Validate position is a valid queen position
-    if (!isAvailablePosition(board, row, column) ||
-        isVisitedRegion(visitedRegions, regionsBoard[row][column], column, 0))
-        // Try next row in column
-        return solver(regionsBoard, visitedRegions, board, dimension, row + 1, column);
+    /*
+      No valid position in current column, backtrack to previous column.
+      Base case #2: checked all rows in column 0 and no possible solution found.
+    */
+    if (column == 0) return 0;
 
-    // Valid position is found, put a queen there and move on to next column
-    board[row][column] = QUEEN_POS;
-    return solver(regionsBoard, visitedRegions, board, dimension, 0, column + 1);
+    // Backtrack: try again with previous column, pick another row bigger than previous row picked
+    int prevColumn = column - 1;
+    int prevQueenRow = getQueenRow(queenRows, prevColumn);
+    queenRows[prevColumn] = -1; // Remove previous queen location
+
+    // Recursion call: try to solve with different queen row in previous column
+    return solver(regionsBoard, visitedRegions, queenRows, dimension, prevQueenRow + 1, prevColumn);
 }
 
 void queensBattle() {
@@ -360,8 +382,6 @@ void queensBattle() {
     scanf("%d", &dimension);
     printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
 
-    char board[MAX_QB_DIM][MAX_QB_DIM]; // Solution board
-
     char regionsBoard[MAX_QB_DIM][MAX_QB_DIM];
     for (int row = 0; row < dimension; row++) {
         for (int column = 0; column < dimension; column++) {
@@ -369,9 +389,12 @@ void queensBattle() {
         }
     }
 
+    // Solution queens rows, indexed by column. e.g. queens[1] == 2: queen at column 1, row 2
+    int queenRows[MAX_QB_DIM];
+    // Keeps visited regions during recursion to prevent two queens on the same region
     char visitedRegions[MAX_QB_DIM];
     // Try to find a solution for given regionsBoard and given dimension
-    if (dimension != 0 && !solver(regionsBoard, visitedRegions, board, dimension, 0, 0)) {
+    if (dimension != 0 && !solver(regionsBoard, visitedRegions, queenRows, dimension, 0, 0)) {
         printf("This puzzle cannot be solved.\n");
         return;
     }
@@ -380,7 +403,7 @@ void queensBattle() {
     printf("Solution:\n");
     for (int row = 0; row < dimension; row++) {
         for (int column = 0; column < dimension; column++) {
-            char value = board[row][column] == QUEEN_POS ? QUEEN_POS : EMPTY_POS;
+            char value = queenRows[column] == row ? QUEEN_POS : EMPTY_POS;
             printf("%c ", value);
         }
         printf("\n");
