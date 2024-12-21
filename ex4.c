@@ -24,6 +24,36 @@ Assignment:
 #define EMPTY_POS '*'
 #define QUEEN_POS 'X'
 
+#define HORIZONTAL 'H'
+#define VERTICAL 'V'
+#define MAX_SLOTS 100
+#define MAX_WORDS 100
+#define MAX_WORD_LENGTH 15
+#define MAX_CW_DIM 30
+
+#define FIRST_ASCII_LETTER 'A'
+#define LAST_ASCII_LETTER 'z'
+#define NO_LETTER '#'
+#define NO_AVAILABLE_WORD (-1)
+
+typedef struct {
+    int row;
+    int column;
+    int length;
+    char direction;
+    int wordIndex;
+} Slot;
+
+typedef struct {
+    char value[MAX_WORD_LENGTH];
+    int used;
+} Word;
+
+typedef struct {
+    int row;
+    int column;
+} Position;
+
 // Task Defined Functions
 
 void robotPaths();
@@ -335,7 +365,7 @@ int getNextAvailableRow(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], 
  - if (row, column) is a valid queen row, put a queen there and move on to next column to find a valid row
  - if no row is valid in column, backtrack to previous column until a valid position is found
 */
-int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], int queenRows[],
+int solveQueenBattles(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], int queenRows[],
     int dimension, int row, int column) {
 
     // Base case #1: successfully placed all queens by the rules in each column
@@ -358,7 +388,7 @@ int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], int queenRows
     */
     if (availableRow != dimension && (column == 0 || nextAvailableRow != dimension)) {
         queenRows[column] = availableRow;
-        return solver(regionsBoard, visitedRegions, queenRows, dimension, 0, column + 1);
+        return solveQueenBattles(regionsBoard, visitedRegions, queenRows, dimension, 0, column + 1);
     }
 
     /*
@@ -373,7 +403,7 @@ int solver(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], int queenRows
     queenRows[prevColumn] = -1; // Remove previous queen location
 
     // Recursion call: try to solve with different queen row in previous column
-    return solver(regionsBoard, visitedRegions, queenRows, dimension, prevQueenRow + 1, prevColumn);
+    return solveQueenBattles(regionsBoard, visitedRegions, queenRows, dimension, prevQueenRow + 1, prevColumn);
 }
 
 void queensBattle() {
@@ -394,7 +424,7 @@ void queensBattle() {
     // Keeps visited regions during recursion to prevent two queens on the same region
     char visitedRegions[MAX_QB_DIM];
     // Try to find a solution for given regionsBoard and given dimension
-    if (dimension != 0 && !solver(regionsBoard, visitedRegions, queenRows, dimension, 0, 0)) {
+    if (dimension != 0 && !solveQueenBattles(regionsBoard, visitedRegions, queenRows, dimension, 0, 0)) {
         printf("This puzzle cannot be solved.\n");
         return;
     }
@@ -410,6 +440,132 @@ void queensBattle() {
     }
 }
 
+Position getDirectedPosition(int row, int column, char direction, int index) {
+    return direction == HORIZONTAL
+        ? (Position) { row, column + index }
+        : (Position) { row + index, column };
+}
+
+char getOppositeDirection(char direction) {
+    return direction == HORIZONTAL ? VERTICAL : HORIZONTAL;
+}
+
+int isPositionCaught(char position) {
+    return position <= LAST_ASCII_LETTER && position >= FIRST_ASCII_LETTER;
+}
+
+int isDirectedCaught(char board[][MAX_CW_DIM], int dimension, Slot slot, char word[], int index) {
+    Position pos = getDirectedPosition(slot.row, slot.column, slot.direction, index);
+    if (index == slot.length || pos.row >= dimension || pos.column >= dimension) return 0;
+
+    char posValue = board[pos.row][pos.column];
+    if (isPositionCaught(posValue) && word[index] != posValue) return 1;
+
+    return isDirectedCaught(board, dimension, slot, word, index + 1);
+}
+
+int isMatchSlot(char board[][MAX_CW_DIM], int dimension, Slot slot, Word word) {
+    if ((int) strlen(word.value) != slot.length) return 0;
+    return !isDirectedCaught(board, dimension, slot, word.value, 0);
+}
+
+int getNextAvailableWordIndex(char board[][MAX_CW_DIM], int dimension, Slot slot, Word words[], int wordsCount, int wordIndex) {
+    if (wordIndex == wordsCount) return NO_AVAILABLE_WORD;
+    if (words[wordIndex].used != 1 && isMatchSlot(board, dimension, slot, words[wordIndex])) return wordIndex;
+    return getNextAvailableWordIndex(board, dimension, slot, words, wordsCount, wordIndex + 1);
+}
+
+void insertWordToSlot(char board[][MAX_CW_DIM], Slot slot, Word word, int posIndex) {
+    if (posIndex == slot.length) return;
+
+    Position pos = getDirectedPosition(slot.row, slot.column, slot.direction, posIndex);
+    board[pos.row][pos.column] = word.value[posIndex];
+    insertWordToSlot(board, slot, word, posIndex + 1);
+}
+
+int hasAdjacentWord(char board[][MAX_CW_DIM], int dimension, int row, int column, char direction) {
+    char adjacentsDirection = getOppositeDirection(direction);
+    Position next = getDirectedPosition(row, column, adjacentsDirection, 1);
+    Position previous = getDirectedPosition(row, column, direction, -1);
+    return
+        (next.row < dimension && isPositionCaught(board[next.row][next.column])) ||
+        (previous.row > 0 && isPositionCaught(board[previous.row][previous.column]));
+}
+
+void removeWordFromBoard(char board[][MAX_CW_DIM], int dimension, Slot slot, int posIndex) {
+    if (posIndex == slot.length) return;
+
+    Position pos = getDirectedPosition(slot.row, slot.column, slot.direction, posIndex);
+    if (!hasAdjacentWord(board, dimension, pos.row, pos.column, slot.direction))
+        board[pos.row][pos.column] = NO_LETTER;
+    removeWordFromBoard(board, dimension, slot, posIndex + 1);
+}
+
+int solveCrossword(char board[][MAX_CW_DIM], int dimension, Slot slotsDetails[], int slotsCount, int slotsIndex,
+    Word words[], int wordsCount, int wordIndex, int depth) {
+
+    if (slotsIndex == slotsCount) return 1;
+    if (slotsIndex == 0 && wordIndex == wordsCount) return 0;
+    int availableWordIndex = getNextAvailableWordIndex(board, dimension, slotsDetails[slotsIndex], words, wordsCount, wordIndex);
+
+    int prevSlotsIndex = slotsIndex - 1;
+    int prevWordIndex = slotsDetails[prevSlotsIndex].wordIndex;
+    if (availableWordIndex == NO_AVAILABLE_WORD) {
+        words[prevWordIndex].used = 0;
+        removeWordFromBoard(board, dimension, slotsDetails[prevSlotsIndex], 0);
+        return solveCrossword(board, dimension, slotsDetails, slotsCount, prevSlotsIndex, words, wordsCount, prevWordIndex + 1, depth + 1);
+    }
+
+    insertWordToSlot(board, slotsDetails[slotsIndex], words[availableWordIndex], 0);
+    words[availableWordIndex].used = 1;
+    slotsDetails[slotsIndex].wordIndex = availableWordIndex;
+    return solveCrossword(board, dimension, slotsDetails, slotsCount, slotsIndex + 1, words, wordsCount, 0, depth + 1);
+}
+
 void crosswordGenerator() {
-    // Todo
+    printf("Please enter the dimensions of the crossword grid:\n");
+    int dimension;
+    scanf("%d", &dimension);
+
+    printf("Please enter the number of slots in the crossword:\n");
+    int slotsCount;
+    scanf("%d", &slotsCount);
+
+    printf("Please enter the details for each slot (Row, Column, Length, Direction):\n");
+    Slot slotsDetails[MAX_SLOTS];
+    for (int slot = 0; slot < slotsCount; slot++) {
+        scanf("%d", &slotsDetails[slot].row);
+        scanf("%d", &slotsDetails[slot].column);
+        scanf("%d", &slotsDetails[slot].length);
+        scanf(" %c", &slotsDetails[slot].direction);
+    }
+
+    printf("Please enter the number of words in the dictionary:\n");
+    int wordsCount;
+    scanf("%d", &wordsCount);
+    while (wordsCount < slotsCount) {
+        printf("The dictionary must contain at least %d words. Please enter a valid dictionary size:\n", slotsCount);
+        scanf("%d", &wordsCount);
+    }
+
+    printf("Please enter the words for the dictionary:\n");
+    Word words[MAX_WORDS];
+    for (int word = 0; word < wordsCount; word++) {
+        scanf(" %s", words[word].value);
+        words[word].used = 0; // TODO check if allowed in loops
+    }
+
+    char board[MAX_CW_DIM][MAX_CW_DIM] = {0};
+    if (!solveCrossword(board, dimension, slotsDetails, slotsCount, 0, words, wordsCount, 0, 0)) {
+        printf("This crossword cannot be solved.\n");
+        return;
+    }
+
+    for (int row = 0; row < dimension; row++) {
+        for (int column = 0; column < dimension; column++) {
+            char value = isPositionCaught(board[row][column]) ? board[row][column] : NO_LETTER;
+            printf("| %c ", value);
+        }
+        printf("|\n");
+    }
 }
