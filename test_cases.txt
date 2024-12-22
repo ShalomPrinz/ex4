@@ -929,6 +929,70 @@ Choose an option:
 6. Exit
 Goodbye!
 
+- name: Queens Battle: 20 dimension solution
+  input: |
+4 20
+QRMQPCYTPYYFBQKQHTFT
+BEWFZEFXRBYWWNCJXIIK
+WNXYXYQKEQMYGNHFCSWK
+RGIJYWMNHFMXRIHIBBHM
+HCYYTYRCQIYHWHFERNHG
+PSKXYBXQMFQIPRGFHKCK
+WNCNSWHPFTGCXNQXXXRX
+XPQZCMQKZFSRJRWSWSXM
+KKGHNYCZNJQWSYPPBJTT
+YNMWMNXBHWBFCCPMQSRF
+TMGBGMNNYYYPJGJEBTCM
+JQGPWCEKMFSPBMTFKBYI
+EKQSFPFCZSRYGBYCZWJN
+EGFEFIFHEFNEMSPIPIWT
+NSWHESBJZSIWKEMZBHBF
+QBNYPHSGGWBHBBQRRYYZ
+EBJQYGTBRZMFXKJFFCBZ
+BTKIMREQKBYHTNZQTZNX
+FISMBQIQJZZKGPWPHKIZ
+SZCEPIKGJZPRZMWTTNFC
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 20*20 puzzle board:
+Solution:
+X * * * * * * * * * * * * * * * * * * *
+* * * X * * * * * * * * * * * * * * * *
+* X * * * * * * * * * * * * * * * * * *
+* * * * * X * * * * * * * * * * * * * *
+* * X * * * * * * * * * * * * * * * * *
+* * * * * * X * * * * * * * * * * * * *
+* * * * X * * * * * * * * * * * * * * *
+* * * * * * * X * * * * * * * * * * * *
+* * * * * * * * * X * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * X *
+* * * * * * * * * * * * * * * X * * * *
+* * * * * * * * X * * * * * * * * * * *
+* * * * * * * * * * * * X * * * * * * *
+* * * * * * * * * * * * * * X * * * * *
+* * * * * * * * * * X * * * * * * * * *
+* * * * * * * * * * * * * X * * * * * *
+* * * * * * * * * * * * * * * * * X * *
+* * * * * * * * * * * X * * * * * * * *
+* * * * * * * * * * * * * * * * * * * X
+* * * * * * * * * * * * * * * * X * * *
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
 - name: Queens Battle: deep recursion #1: 9 dimension unsolved
   input: |
 4 9
@@ -999,6 +1063,159 @@ X * * * * * * * * * *
 * * * * X * * * * * *
 * * * * * * * X * * *
 * * * * * * * * * * X
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: deep recursion #3: 15 dimension solution
+  input: |
+4 15
+AAACCCEEEGGGIKM
+AAACCCEEEGGGIKM
+AAACCCEEEGGGIKM
+CCCFFGGHHJJLLLL
+CCCFFGGHHJJLLLL
+CCCFFGGHHJJLLLL
+DDDEEEEFFFHHHOO
+DDDEEEEFFFHHHOO
+DDDEEEEFFFHHHOO
+BBBBCCCCDDDDMMM
+BBBBCCCCDDDDMMM
+BBBBCCCCDDDDMMM
+IIIIKKKLLLMMMNN
+IIIIKKKLLLMMMNN
+IIIIKKKLLLMMMNN
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 15*15 puzzle board:
+Solution:
+X * * * * * * * * * * * * * *
+* * * * * * X * * * * * * * *
+* * * * * * * * * * X * * * *
+* * * * * * * X * * * * * * *
+* * * * * * * * * X * * * * *
+* * * * * * * * * * * X * * *
+* X * * * * * * * * * * * * *
+* * * * * * * * X * * * * * *
+* * * * * * * * * * * * * X *
+* * X * * * * * * * * * * * *
+* * * * X * * * * * * * * * *
+* * * * * * * * * * * * X * *
+* * * X * * * * * * * * * * *
+* * * * * X * * * * * * * * *
+* * * * * * * * * * * * * * X
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: deep recursion #4: 20 dimension solution
+  input: |
+4 20
+AAABBBBBCDDDDEEEEEEE
+AAABBBBBCDDDDEEEEEEE
+AAAAABBBCCDDDEEEEEEG
+AAAAABBBCCFFFEEEEEGG
+OOOAABBBBCFFFEEEEGGG
+OOOAAAABBCFFFEEEGGGG
+OOOAAAAABCHHHEEGGGGG
+OOPPPRAABCHHHEGGGGGG
+OOPPPRRRRCIIIIIMMMMM
+OPPPPRRRRCIIIIIMMMMM
+OPPPPPRRRCJJJJJMMMMM
+OSSPPPRRRCCCJJJMMMMM
+OOSPPPRRRRCCKKKKKKMM
+OOSSPPRRRRCCKKKKKKMM
+OOOOPPRRRRCCLLLLLLMM
+TTOOPPRRRRCCLLLLLLMM
+TUUOPPRRRRCCNNNNNMMM
+TUUUPPRRRRCCNNNNNMMM
+TTUUUPRRRRCCNNNNMMMM
+TTUUUPRRRRCCNNNNMMMM
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 20*20 puzzle board:
+Solution:
+X * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * X * * * * * * * * * *
+* * * * * * X * * * * * * * * * * * * *
+* * * * * * * * X * * * * * * * * * * *
+* * * * * * * * * * X * * * * * * * * *
+* * * * * * * * * * * * * X * * * * * *
+* * * * * * * * * * * X * * * * * * * *
+* * * * * * * * * * * * * * * * * * X *
+* * * * * * * X * * * * * * * * * * * *
+* * * * * * * * * * * * X * * * * * * *
+* * * * * * * * * * * * * * X * * * * *
+* * X * * * * * * * * * * * * * * * * *
+* * * * * X * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * X * * * *
+* * * * * * * * * * * * * * * * * X * *
+* X * * * * * * * * * * * * * * * * * *
+* * * X * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * X * * *
+* * * * X * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * X
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Queens Battle: deep recursion #5: 11 dimension unsolved
+  input: |
+4 11
+AAAAAAAABBB
+AAAAAAAABBB
+AAAAAAAABBB
+CCCCCCCCDDD
+CCCCCCCCDDD
+PPPPPPPPDDD
+EEEEEEEFFFF
+EEEEEEEFFFF
+VVVVVVVFFFF
+GGGGGGGHHHH
+KKKKKKKKKKK
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the board dimensions:
+Please enter a 11*11 puzzle board:
+This puzzle cannot be solved.
 Choose an option:
 1. Robot Paths
 2. The Human Pyramid
