@@ -5,6 +5,7 @@ Assignment:
 *******************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 // Cheerleaders human pyramid dimensions, e.g. 5 means 5x5 pyramid
@@ -24,18 +25,23 @@ Assignment:
 #define EMPTY_POS '*'
 #define QUEEN_POS 'X'
 
+// Crossword available slot directions
 #define HORIZONTAL 'H'
 #define VERTICAL 'V'
+
+// Crossword given max sizes
 #define MAX_SLOTS 100
 #define MAX_WORDS 100
 #define MAX_WORD_LENGTH 15
 #define MAX_CW_DIM 30
 
-#define FIRST_ASCII_LETTER 'A'
-#define LAST_ASCII_LETTER 'z'
+// Crossword constants
+#define FIRST_LETTER 'A'
+#define LAST_LETTER 'z'
 #define NO_LETTER '#'
 #define NO_AVAILABLE_WORD (-1)
 
+// Crossword Slot
 typedef struct {
     int row;
     int column;
@@ -44,11 +50,13 @@ typedef struct {
     int wordIndex;
 } Slot;
 
+// Crossword Word
 typedef struct {
     char value[MAX_WORD_LENGTH];
     int used;
 } Word;
 
+// Crossword board Position
 typedef struct {
     int row;
     int column;
@@ -88,7 +96,18 @@ int solveQueenBattles(char regionsBoard[][MAX_QB_DIM], char visitedRegions[], in
     int dimension, int row, int column);
 
 // Crossword Generator
-// TODO
+Position getDirectedPosition(int row, int column, char direction, int index);
+char getOppositeDirection(char direction);
+int isPositionCaught(char position);
+int isDirectedCaught(char board[][MAX_CW_DIM], int dimension, Slot slot, char word[], int index);
+int isMatchSlot(char board[][MAX_CW_DIM], int dimension, Slot slot, Word word);
+int getNextAvailableWordIndex(char board[][MAX_CW_DIM], int dimension, Slot slot, Word words[],
+    int wordsCount, int wordIndex);
+void insertWordToSlot(char board[][MAX_CW_DIM], Slot slot, Word word, int posIndex);
+int hasAdjacentWord(char board[][MAX_CW_DIM], int dimension, int row, int column, char direction);
+void removeWordFromBoard(char board[][MAX_CW_DIM], int dimension, Slot slot, int posIndex);
+int solveCrossword(char board[][MAX_CW_DIM], int dimension, Slot slotsDetails[], int slotsCount, int slotsIndex,
+    Word words[], int wordsCount, int wordIndex);
 
 int main() {
     int task = -1;
@@ -426,97 +445,167 @@ void queensBattle() {
     }
 }
 
+/*
+ Returns calculated Position based on given row and column: moves index times in given direction
+*/
 Position getDirectedPosition(int row, int column, char direction, int index) {
-    return direction == HORIZONTAL
-        ? (Position) { row, column + index }
-        : (Position) { row + index, column };
+    Position pos;
+    pos.row = direction == HORIZONTAL ? row : row + index;
+    pos.column = direction == HORIZONTAL ? column + index : column;
+    return pos;
 }
 
+/*
+ Returns V if given direction is H, and returns H otherwise
+*/
 char getOppositeDirection(char direction) {
     return direction == HORIZONTAL ? VERTICAL : HORIZONTAL;
 }
 
-int isPositionCaught(char position) {
-    return position <= LAST_ASCII_LETTER && position >= FIRST_ASCII_LETTER;
+/*
+ Returns whether given position value is a crossword letter, which means its caught in board
+*/
+int isPositionCaught(char value) {
+    return value >= FIRST_LETTER && value <= LAST_LETTER;
 }
 
+/*
+ Returns whether given slot is caught with a char which doesn't match word's chars
+*/
 int isDirectedCaught(char board[][MAX_CW_DIM], int dimension, Slot slot, char word[], int index) {
+    // Calculates current position value in board
     Position pos = getDirectedPosition(slot.row, slot.column, slot.direction, index);
-    if (index == slot.length || pos.row >= dimension || pos.column >= dimension) return 0;
+    // Base case: Validated last slot position => Word matches Slot
+    if (index == slot.length) return 0;
 
     char posValue = board[pos.row][pos.column];
+    // Base case: Found a char that doesn't match word's current char
     if (isPositionCaught(posValue) && word[index] != posValue) return 1;
 
+    // Validates match between next char in slot and in word
     return isDirectedCaught(board, dimension, slot, word, index + 1);
 }
 
+/*
+ Returns whether given Word can be placed in given Slot
+*/
 int isMatchSlot(char board[][MAX_CW_DIM], int dimension, Slot slot, Word word) {
+    // If word length isn't equal slot length => word isn't a match for slot
     if ((int) strlen(word.value) != slot.length) return 0;
+    // Validates match with current board state
     return !isDirectedCaught(board, dimension, slot, word.value, 0);
 }
 
-int getNextAvailableWordIndex(char board[][MAX_CW_DIM], int dimension, Slot slot, Word words[], int wordsCount, int wordIndex) {
+/*
+ Returns next available word index from given words array, or NO_AVAILABLE_WORD if no word is a match to slot
+*/
+int getNextAvailableWordIndex(char board[][MAX_CW_DIM], int dimension, Slot slot, Word words[],
+    int wordsCount, int wordIndex) {
+    // Base case: no word match found to given slot
     if (wordIndex == wordsCount) return NO_AVAILABLE_WORD;
+    // Validates word is not used and word matches slot
     if (words[wordIndex].used != 1 && isMatchSlot(board, dimension, slot, words[wordIndex])) return wordIndex;
+    // Recursion call to validate next word index in words array
     return getNextAvailableWordIndex(board, dimension, slot, words, wordsCount, wordIndex + 1);
 }
 
+/*
+ Inserts given word to given slot in board
+*/
 void insertWordToSlot(char board[][MAX_CW_DIM], Slot slot, Word word, int posIndex) {
+    // Base case: filled all slot cells with word chars
     if (posIndex == slot.length) return;
 
+    // Fills next slot position with word's char at posIndex
     Position pos = getDirectedPosition(slot.row, slot.column, slot.direction, posIndex);
     board[pos.row][pos.column] = word.value[posIndex];
+
+    // Inserts next word's char to board
     insertWordToSlot(board, slot, word, posIndex + 1);
 }
 
+/*
+ Returns whether given (row, column) at board has an adjacent word in the opposite direction of given direction
+*/
 int hasAdjacentWord(char board[][MAX_CW_DIM], int dimension, int row, int column, char direction) {
+    // Gets direction to validate
     char adjacentsDirection = getOppositeDirection(direction);
+    // Next position: Move (row, column) 1 step forward
     Position next = getDirectedPosition(row, column, adjacentsDirection, 1);
-    Position previous = getDirectedPosition(row, column, direction, -1);
+    // Previous position: Move (row, column) 1 step backward
+    Position previous = getDirectedPosition(row, column, adjacentsDirection, -1);
+
+    // Returns whether (next position is valid and caught) or (previous position is valid and caught)
     return
-        (next.row < dimension && isPositionCaught(board[next.row][next.column])) ||
-        (previous.row > 0 && isPositionCaught(board[previous.row][previous.column]));
+        (next.row < dimension && next.column < dimension && isPositionCaught(board[next.row][next.column])) ||
+        (previous.row > 0 && previous.column > 0 && isPositionCaught(board[previous.row][previous.column]));
 }
 
+/*
+ Removes all chars that aren't a part of other words from given slot in board
+*/
 void removeWordFromBoard(char board[][MAX_CW_DIM], int dimension, Slot slot, int posIndex) {
+    // Base case: traversed all chars in slot
     if (posIndex == slot.length) return;
 
+    // Get next position in slot
     Position pos = getDirectedPosition(slot.row, slot.column, slot.direction, posIndex);
+    // If board at pos is not a part of adjacent word, remove it
     if (!hasAdjacentWord(board, dimension, pos.row, pos.column, slot.direction))
         board[pos.row][pos.column] = NO_LETTER;
+    // Remove next char from slot
     removeWordFromBoard(board, dimension, slot, posIndex + 1);
 }
 
+/*
+ Solves crossword puzzle and generates the solved crossword based on given input.
+ If crossword is solvable, board will be filled according to input and 1 ("True") is returned.
+ If crossword is not solvable, returns 0 ("False").
+*/
 int solveCrossword(char board[][MAX_CW_DIM], int dimension, Slot slotsDetails[], int slotsCount, int slotsIndex,
-    Word words[], int wordsCount, int wordIndex, int depth) {
+    Word words[], int wordsCount, int wordIndex) {
 
+    // Base case: placed words at all slots correctly
     if (slotsIndex == slotsCount) return 1;
-    if (slotsIndex == 0 && wordIndex == wordsCount) return 0;
-    int availableWordIndex = getNextAvailableWordIndex(board, dimension, slotsDetails[slotsIndex], words, wordsCount, wordIndex);
 
-    int prevSlotsIndex = slotsIndex - 1;
-    int prevWordIndex = slotsDetails[prevSlotsIndex].wordIndex;
-    if (availableWordIndex == NO_AVAILABLE_WORD) {
-        words[prevWordIndex].used = 0;
-        removeWordFromBoard(board, dimension, slotsDetails[prevSlotsIndex], 0);
-        return solveCrossword(board, dimension, slotsDetails, slotsCount, prevSlotsIndex, words, wordsCount, prevWordIndex + 1, depth + 1);
+    // Gets next available word index that matches current slot
+    int availableWordIndex = getNextAvailableWordIndex(board, dimension, slotsDetails[slotsIndex],
+        words, wordsCount, wordIndex);
+
+    // Base case: no match found for slot based, backtracks to previous slot and tries another word
+    if (availableWordIndex == NO_AVAILABLE_WORD) return 0;
+
+    // Inserts word to slot
+    insertWordToSlot(board, slotsDetails[slotsIndex], words[availableWordIndex], 0);
+    words[availableWordIndex].used = 1; // Mark word as "used": don't use it again in another slot
+
+    // Tries to solve next slot based on current word-slot match
+    if (solveCrossword(board, dimension, slotsDetails, slotsCount, slotsIndex + 1,
+        words, wordsCount, 0)) {
+        return 1;
     }
 
-    insertWordToSlot(board, slotsDetails[slotsIndex], words[availableWordIndex], 0);
-    words[availableWordIndex].used = 1;
-    slotsDetails[slotsIndex].wordIndex = availableWordIndex;
-    return solveCrossword(board, dimension, slotsDetails, slotsCount, slotsIndex + 1, words, wordsCount, 0, depth + 1);
+    // Match leads to NO_AVAILABLE_WORD at a later slot, remove it and try another word for current slot
+    removeWordFromBoard(board, dimension, slotsDetails[slotsIndex], 0);
+    words[availableWordIndex].used = 0; // Remove "used" mark: you can use it in any other slot
+
+    // Solve with other available word that matches current slot
+    return solveCrossword(board, dimension, slotsDetails, slotsCount, slotsIndex,
+        words, wordsCount, availableWordIndex + 1);
 }
 
 void crosswordGenerator() {
+    // Crossword dimensions (squared)
     printf("Please enter the dimensions of the crossword grid:\n");
     int dimension;
     scanf("%d", &dimension);
 
+    // Number of slots in crossword
     printf("Please enter the number of slots in the crossword:\n");
     int slotsCount;
     scanf("%d", &slotsCount);
 
+    // Slots details input
     printf("Please enter the details for each slot (Row, Column, Length, Direction):\n");
     Slot slotsDetails[MAX_SLOTS];
     for (int slot = 0; slot < slotsCount; slot++) {
@@ -526,27 +615,36 @@ void crosswordGenerator() {
         scanf(" %c", &slotsDetails[slot].direction);
     }
 
+    // Input word count and validate there are at least (slotsCount) number of words
     printf("Please enter the number of words in the dictionary:\n");
     int wordsCount;
     scanf("%d", &wordsCount);
+    // Validate wordCount is at least slotsCount
     while (wordsCount < slotsCount) {
         printf("The dictionary must contain at least %d words. Please enter a valid dictionary size:\n", slotsCount);
         scanf("%d", &wordsCount);
     }
 
+    // Input words values
     printf("Please enter the words for the dictionary:\n");
     Word words[MAX_WORDS];
     for (int word = 0; word < wordsCount; word++) {
         scanf(" %s", words[word].value);
+        // Mark each word initial "used" value as 0 ("False")
         words[word].used = 0;
     }
 
+    // Declaration of solution crossword board
     char board[MAX_CW_DIM][MAX_CW_DIM] = {0};
-    if (!solveCrossword(board, dimension, slotsDetails, slotsCount, 0, words, wordsCount, 0, 0)) {
+
+    // Solve crossword with given input. start at slot #0 and word #0
+    if (!solveCrossword(board, dimension, slotsDetails, slotsCount, 0, words, wordsCount, 0)) {
+        // No solution found
         printf("This crossword cannot be solved.\n");
         return;
     }
 
+    // Found a solution, print it in given format
     for (int row = 0; row < dimension; row++) {
         for (int column = 0; column < dimension; column++) {
             char value = isPositionCaught(board[row][column]) ? board[row][column] : NO_LETTER;

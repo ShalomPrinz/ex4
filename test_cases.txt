@@ -2014,3 +2014,1068 @@ Choose an option:
 5. Crossword Generator
 6. Exit
 Goodbye!
+
+- name: Crossword Generator: minimal true
+  input: |
+5
+6
+4
+2 2 4 H
+0 0 4 V
+0 0 4 H
+2 2 4 V
+6
+BITE
+BALL
+BOWL
+BIKE
+BIND
+BAND
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| B | O | W | L | # | # |
+| A | # | # | # | # | # |
+| L | # | B | I | T | E |
+| L | # | I | # | # | # |
+| # | # | K | # | # | # |
+| # | # | E | # | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: minimal false
+  input: |
+5
+5
+4
+0 0 5 V
+0 0 5 H
+0 4 5 V
+4 0 5 H
+4
+JOKER
+POKER
+TULIP
+WORLD
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+This crossword cannot be solved.
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: minimal cross
+  input: |
+5
+3
+2
+0 0 3 V
+1 0 2 H
+3
+TAP
+TIP
+IN
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| T | # | # |
+| I | N | # |
+| P | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: 2x2 grid true
+  input: |
+5
+2
+2
+0 0 2 H
+0 0 2 V
+2
+IT
+IN
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| I | T |
+| N | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: medium example
+  input: |
+5
+10
+8
+0 3 7 H
+1 0 4 H
+3 0 5 H
+4 7 3 H
+6 2 6 H
+0 3 7 V
+0 9 9 V
+2 7 6 V
+7
+10
+FOR
+WHILE
+INCLUDE
+DEFINE
+RECURSION
+INTEGER
+RETURN
+MAIN
+SWITCH
+CASE
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+The dictionary must contain at least 8 words. Please enter a valid dictionary size:
+Please enter the words for the dictionary:
+| # | # | # | I | N | T | E | G | E | R |
+| M | A | I | N | # | # | # | # | # | E |
+| # | # | # | C | # | # | # | D | # | C |
+| W | H | I | L | E | # | # | E | # | U |
+| # | # | # | U | # | # | # | F | O | R |
+| # | # | # | D | # | # | # | I | # | S |
+| # | # | R | E | T | U | R | N | # | I |
+| # | # | # | # | # | # | # | E | # | O |
+| # | # | # | # | # | # | # | # | # | N |
+| # | # | # | # | # | # | # | # | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: 15 grid, 15 slots, 22 words
+  input: |
+5
+15
+15
+7 6 3 H
+6 7 5 V
+8 6 4 H
+10 7 3 H
+5 9 4 V
+3 9 3 V
+3 9 4 H
+0 12 4 V
+0 10 4 H
+2 10 6 V
+4 10 3 H
+1 11 3 H
+4 12 6 V
+2 6 5 H
+8 4 3 H
+22
+WAX
+PAINT
+PIKE
+TUB
+BIKE
+HUB
+HAND
+SEED
+DESK
+HANDLE
+NAP
+BEG
+PUZZLE
+TEACH
+CUP
+PUP
+SINGLE
+IT
+WE
+FOX
+MOAT
+RUB
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| # | # | # | # | # | # | # | # | # | # | D | E | S | K | # |
+| # | # | # | # | # | # | # | # | # | # | # | B | E | G | # |
+| # | # | # | # | # | # | T | E | A | C | H | # | E | # | # |
+| # | # | # | # | # | # | # | # | # | H | A | N | D | # | # |
+| # | # | # | # | # | # | # | # | # | U | N | A | P | # | # |
+| # | # | # | # | # | # | # | # | # | B | D | # | U | # | # |
+| # | # | # | # | # | # | # | P | # | I | L | # | Z | # | # |
+| # | # | # | # | # | # | W | A | X | K | E | # | Z | # | # |
+| # | # | # | # | C | U | P | I | K | E | # | # | L | # | # |
+| # | # | # | # | # | # | # | N | # | # | # | # | E | # | # |
+| # | # | # | # | # | # | # | T | U | B | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: 20 grid, 30 slots, 40 words
+  input: |
+5
+20
+30
+10 9 2 H
+9 9 6 V
+9 6 6 H
+9 8 3 V
+6 10 4 V
+14 4 6 H
+5 11 5 V
+9 7 2 V
+14 4 4 V
+12 6 4 H
+13 5 6 H
+11 9 3 H
+5 8 5 V
+14 8 3 H
+14 8 4 V
+6 8 3 H
+5 8 3 H
+16 8 4 H
+7 10 2 H
+3 10 3 V
+7 11 5 H
+2 12 6 V
+6 3 6 H
+12 10 3 V
+4 6 3 V
+4 6 4 H
+3 11 6 H
+2 12 4 H
+5 14 6 V
+2 7 5 V
+40
+IN
+MIDDLE
+SUMMER
+MAP
+BIKE
+PUZZLE
+WATER
+UP
+POOR
+KIND
+SIMPLE
+DIG
+DREAM
+LEG
+LIME
+ROB
+DOG
+MINE
+IT
+PIG
+TEACH
+HANDLE
+WINTER
+BEG
+PIT
+PARK
+CARPET
+HEAR
+POCKET
+SPACE
+TASK
+BAG
+DOOR
+HOUSE
+DIME
+SUNSET
+DARK
+LIKE
+REACH
+FAINT
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | S | # | # | # | # | H | E | A | R | # | # | # | # |
+| # | # | # | # | # | # | # | P | # | # | P | C | A | R | P | E | T | # | # | # |
+| # | # | # | # | # | # | P | A | R | K | I | # | N | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | I | C | D | O | G | W | D | # | P | # | # | # | # | # |
+| # | # | # | W | I | N | T | E | R | O | B | A | L | # | O | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | E | # | I | T | E | A | C | H | # | # | # | # |
+| # | # | # | # | # | # | # | # | A | # | K | E | # | # | K | # | # | # | # | # |
+| # | # | # | # | # | # | S | U | M | M | E | R | # | # | E | # | # | # | # | # |
+| # | # | # | # | # | # | # | P | A | I | N | # | # | # | T | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | P | D | I | G | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | K | I | N | D | B | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | S | I | M | P | L | E | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | P | U | Z | Z | L | E | G | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | O | # | # | # | I | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | O | # | # | # | M | I | N | E | # | # | # | # | # | # | # | # |
+| # | # | # | # | R | # | # | # | E | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: 25 grid, 50 slots, 70 words
+  input: |
+5
+25
+50
+12 10 4 H
+8 10 6 V
+11 11 3 V
+7 13 6 V
+6 13 2 V
+10 10 3 H
+9 8 5 H
+8 8 2 V
+9 13 2 H
+8 13 2 V
+6 12 4 H
+4 12 4 V
+4 12 4 H
+8 9 5 V
+8 14 4 V
+8 12 4 H
+6 10 3 V
+5 11 3 H
+7 15 6 V
+13 5 6 H
+10 6 4 V
+10 8 5 V
+14 8 3 H
+13 6 3 V
+2 10 5 V
+11 14 3 H
+2 10 6 H
+1 11 4 V
+3 8 3 H
+6 6 5 H
+8 16 6 V
+12 16 4 H
+0 9 5 V
+0 6 4 H
+5 11 2 V
+12 18 4 V
+14 18 5 H
+7 19 6 V
+1 4 6 H
+14 10 5 H
+12 20 4 V
+12 4 4 H
+8 18 5 V
+14 8 2 V
+8 10 3 H
+3 13 3 V
+12 20 3 H
+12 4 6 V
+12 14 4 V
+10 22 3 V
+70
+LIKE
+PADDLE
+FIX
+SINGLE
+IS
+DOG
+PEACH
+UP
+NO
+IN
+MIND
+DIME
+DARK
+TEACH
+MOOD
+TIME
+MAP
+SIT
+PENCIL
+ORANGE
+DOOR
+SAINT
+TUB
+RIG
+STEAM
+DIG
+SILVER
+FINE
+HIT
+DREAM
+JUNGLE
+LIME
+DRAIN
+SEED
+SO
+MARK
+REACH
+SIMPLE
+SUMMER
+BREAK
+BEAR
+POOR
+CREAM
+TO
+PIT
+RAT
+BIT
+POCKET
+BIKE
+CAT
+HUB
+DANCE
+LANCE
+FEAR
+SKATE
+BUNDLE
+DISK
+KIND
+MINE
+SPARK
+HEAR
+SAND
+ROB
+HAT
+FLOWER
+BOAT
+CARPET
+BOX
+FAINT
+SPACE
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| # | # | # | # | # | # | S | E | E | D | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | S | U | M | M | E | R | # | F | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | A | S | I | L | V | E | R | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | H | I | T | N | # | R | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | N | E | E | D | A | R | K | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | A | S | I | T | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | D | R | E | A | M | O | M | I | N | D | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | A | # | E | S | # | P | # | # | # | S | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | U | T | P | I | T | I | M | E | J | # | C | I | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | P | E | A | C | H | N | O | N | U | # | R | M | # | # | # | # | # |
+| # | # | # | # | # | # | D | # | S | A | D | O | G | G | O | C | N | # | E | P | # | # | C | # | # |
+| # | # | # | # | # | # | O | # | A | C | D | F | # | L | D | I | G | # | A | L | # | # | A | # | # |
+| # | # | # | # | P | O | O | R | I | H | L | I | K | E | B | L | L | I | M | E | B | I | T | # | # |
+| # | # | # | # | O | O | R | A | N | G | E | X | # | # | I | # | E | # | A | # | E | # | # | # | # |
+| # | # | # | # | C | # | I | # | T | U | B | R | E | A | K | # | # | # | R | E | A | C | H | # | # |
+| # | # | # | # | K | # | G | # | O | # | # | # | # | # | E | # | # | # | K | # | R | # | # | # | # |
+| # | # | # | # | E | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | T | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: 25 grid, 80 slots, 85 words
+  input: |
+5
+25
+80
+12 10 4 H
+12 12 6 V
+13 7 6 H
+14 10 4 H
+8 13 5 V
+8 10 5 H
+16 10 3 H
+6 12 5 V
+3 14 6 V
+3 13 6 H
+3 13 5 V
+4 13 3 H
+12 8 3 V
+2 16 3 V
+2 14 2 V
+1 12 6 V
+6 10 3 V
+6 14 4 H
+1 12 5 H
+5 14 4 H
+10 7 6 V
+2 16 5 H
+6 16 3 V
+7 8 4 H
+0 20 3 V
+0 15 3 V
+1 19 5 H
+8 8 3 H
+2 11 3 H
+10 4 5 H
+10 4 4 V
+0 20 3 H
+6 6 6 H
+12 2 4 H
+2 11 2 V
+4 6 4 V
+7 14 3 V
+9 5 3 V
+14 2 6 H
+2 8 5 V
+16 10 3 V
+2 20 5 H
+0 10 6 H
+5 15 2 H
+7 3 4 H
+2 10 5 V
+3 7 5 V
+16 12 4 H
+3 18 4 H
+2 6 3 V
+9 8 4 V
+6 2 5 H
+0 18 3 H
+14 12 2 H
+3 4 4 V
+14 8 4 V
+2 4 4 H
+3 16 2 V
+4 16 2 H
+4 0 6 H
+1 22 6 V
+6 20 5 H
+16 6 4 H
+5 11 4 H
+6 20 5 V
+4 22 2 H
+2 2 3 V
+8 16 5 V
+2 0 3 V
+6 2 4 V
+8 10 4 V
+4 9 2 H
+8 4 5 H
+4 0 3 V
+6 4 4 V
+14 2 4 V
+0 15 3 H
+1 5 3 V
+8 18 5 H
+16 0 6 H
+85
+FOOD
+ORANGE
+SUMMER
+BOAT
+CROWD
+PLACE
+WAG
+REACH
+PADDLE
+SPRING
+STEAM
+TAG
+RUB
+FIT
+UP
+SILVER
+LAP
+DIME
+SPEAK
+DISK
+SUNSET
+FAINT
+MAP
+HEAR
+BAT
+RAG
+DANCE
+PUP
+MIX
+MOUSE
+MINE
+BOX
+RIDDLE
+FINE
+MY
+PARK
+LEG
+DOG
+SINGLE
+CLOUD
+WAX
+TEACH
+WINTER
+IS
+MARK
+WHEEL
+DRAIN
+GOOD
+GOAT
+NAP
+FEAR
+LATER
+SOB
+AT
+MOAT
+BEAR
+FIND
+IT
+TO
+BUTTON
+CANDLE
+STEEL
+DEAR
+FEED
+SKATE
+DO
+PIT
+PEACE
+MOB
+LIKE
+POOR
+WE
+SHEEP
+BAG
+TASK
+SAND
+ROB
+SIT
+PEACH
+BUNDLE
+BIKE
+BE
+HAT
+PURPLE
+NO
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| # | # | # | # | # | # | # | # | # | # | W | I | N | T | E | R | O | B | S | O | B | O | X | # | # |
+| # | # | # | # | # | S | # | # | # | # | # | # | S | P | E | A | K | # | # | D | A | N | C | E | # |
+| M | # | P | # | F | I | N | D | C | # | W | M | I | X | U | G | F | A | I | N | T | E | A | C | H |
+| O | # | I | # | M | T | A | D | L | # | H | Y | L | S | P | R | I | N | G | O | A | T | N | # | # |
+| B | U | T | T | O | N | P | R | O | W | E | # | V | T | A | G | T | O | # | # | # | # | D | O | # |
+| A | # | # | # | A | # | A | A | U | # | E | F | E | E | D | I | S | K | # | # | # | # | L | # | # |
+| G | # | L | A | T | E | R | I | D | D | L | E | R | A | D | I | M | E | # | # | S | T | E | E | L |
+| # | # | I | M | A | R | K | N | H | E | A | R | E | M | L | # | A | # | # | # | K | # | # | # | # |
+| # | # | K | # | S | H | E | E | P | U | P | L | A | C | E | # | P | # | P | E | A | C | H | # | # |
+| # | # | E | # | K | D | # | # | F | # | O | # | C | R | G | # | E | # | # | # | T | # | # | # | # |
+| # | # | # | # | M | O | U | S | E | # | O | # | H | O | # | # | A | # | # | # | E | # | # | # | # |
+| # | # | # | # | I | G | # | U | A | # | R | # | # | W | # | # | C | # | # | # | # | # | # | # | # |
+| # | # | F | I | N | E | # | N | R | # | F | O | O | D | # | # | E | # | # | # | # | # | # | # | # |
+| # | # | # | # | E | # | # | S | U | M | M | E | R | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | S | I | N | G | L | E | B | # | B | O | A | T | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | A | # | # | # | # | T | E | # | # | # | N | # | # | # | # | # | # | # | # | # | # | # | # |
+| B | U | N | D | L | E | D | E | A | R | W | A | G | O | O | D | # | # | # | # | # | # | # | # | # |
+| # | # | D | # | # | # | # | # | R | # | A | # | E | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | X | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
+
+- name: Crossword Generator: 30 grid, 99 slots, 100 words
+  input: |
+5
+30
+99
+15 12 5 H
+11 16 5 V
+14 14 3 V
+13 15 5 H
+12 12 6 H
+9 13 5 V
+11 19 3 V
+8 14 5 V
+14 16 5 H
+8 14 3 H
+5 16 4 V
+12 18 6 H
+14 14 3 H
+8 16 3 H
+8 20 6 V
+6 15 5 V
+10 22 4 V
+4 18 5 V
+8 20 2 H
+13 10 4 H
+10 16 5 H
+7 17 3 V
+6 19 5 V
+16 14 6 H
+3 16 3 V
+3 19 4 V
+4 13 4 H
+3 12 6 H
+16 14 4 V
+7 17 4 H
+14 10 5 H
+16 16 3 V
+3 14 4 V
+8 22 4 V
+14 10 6 V
+16 7 5 H
+10 22 2 H
+14 8 5 V
+2 17 4 V
+2 17 2 H
+7 20 4 H
+3 12 3 V
+2 13 5 H
+8 22 3 H
+8 15 2 H
+7 24 5 V
+3 23 5 V
+0 18 4 V
+4 22 5 H
+9 21 4 H
+0 26 5 V
+0 26 3 H
+4 22 3 V
+2 22 3 V
+18 14 6 V
+6 20 3 H
+0 24 6 V
+1 23 3 H
+6 9 6 H
+6 22 6 H
+4 10 5 V
+0 16 6 H
+22 12 3 H
+8 16 2 V
+1 19 3 V
+15 9 3 H
+2 20 4 H
+4 26 3 H
+18 8 6 V
+10 14 2 H
+8 8 4 H
+0 10 5 V
+12 8 3 V
+12 4 6 H
+4 26 5 V
+2 8 5 H
+12 4 6 V
+0 10 4 H
+2 8 6 V
+4 28 2 H
+10 4 3 V
+0 8 3 H
+8 8 4 V
+4 20 3 H
+5 8 2 V
+1 7 4 H
+7 17 2 H
+20 6 6 H
+20 12 5 H
+8 12 3 H
+4 6 4 H
+2 28 3 V
+4 6 4 V
+10 6 6 H
+14 2 6 H
+20 13 4 H
+15 4 5 H
+8 12 4 V
+3 21 3 H
+100
+MOUSE
+PLATE
+PUP
+SAINT
+JUNGLE
+CLOUD
+SIT
+BRAIN
+TRAIN
+BIT
+GOAT
+SILVER
+PIT
+TAP
+MARBLE
+FAINT
+NEED
+SLEEP
+MY
+WIND
+WATER
+BAT
+DANCE
+POCKET
+LEG
+GOOD
+BIKE
+MIDDLE
+POOR
+BEAR
+SHEEP
+CAT
+DIME
+FINE
+SINGLE
+PAINT
+NO
+PEACH
+DESK
+DO
+RISK
+MIX
+PROUD
+FIT
+IT
+STEEL
+BREAK
+MOOD
+BREAD
+PIKE
+CROWD
+CAP
+BAG
+ROB
+ORANGE
+WAG
+CARPET
+RAT
+BUNDLE
+GARDEN
+HOUSE
+SIMPLE
+RAG
+TO
+PIG
+FIX
+MARK
+DIG
+HANDLE
+AT
+FEED
+BEACH
+LAP
+PUZZLE
+DREAM
+SKATE
+PURPLE
+BAND
+SPRING
+GO
+CUP
+JOB
+FOOD
+RUB
+IN
+HIKE
+BE
+WINTER
+SPARK
+MOB
+DARK
+BEG
+DOOR
+FLOWER
+CIRCLE
+PARK
+PEACE
+MINE
+SOB
+HEAR
+6
+  output: |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Please enter the dimensions of the crossword grid:
+Please enter the number of slots in the crossword:
+Please enter the details for each slot (Row, Column, Length, Direction):
+Please enter the number of words in the dictionary:
+Please enter the words for the dictionary:
+| # | # | # | # | # | # | # | # | J | O | B | A | N | D | # | # | S | I | M | P | L | E | # | # | C | # | C | A | P | # |
+| # | # | # | # | # | # | # | H | I | K | E | # | # | # | # | # | # | # | O | P | # | # | # | R | A | T | R | # | # | # |
+| # | # | # | # | # | # | # | # | S | K | A | T | E | P | R | O | U | D | O | I | M | A | R | K | R | # | O | # | B | # |
+| # | # | # | # | # | # | # | # | P | # | C | # | M | I | D | D | L | E | D | G | # | S | O | B | P | # | W | # | E | # |
+| # | # | # | # | # | # | D | A | R | K | H | # | I | B | I | K | E | S | S | O | R | U | B | R | E | A | D | I | G | O |
+| # | # | # | # | # | # | O | # | I | # | O | # | X | # | M | # | G | K | L | O | # | # | A | E | T | # | R | # | # | # |
+| # | # | # | # | # | # | O | # | N | B | U | N | D | L | E | F | O | # | E | D | W | A | G | A | R | D | E | N | # | # |
+| # | # | # | # | # | # | R | # | G | # | S | # | # | # | # | A | A | B | E | A | R | I | S | K | S | # | A | # | # | # |
+| # | # | # | # | # | # | # | # | F | E | E | D | M | O | B | I | T | A | P | N | M | Y | F | I | T | # | M | # | # | # |
+| # | # | # | # | # | # | # | # | O | # | # | # | I | C | R | N | O | T | # | C | A | P | I | K | E | # | # | # | # | # |
+| # | # | # | # | C | # | F | L | O | W | E | R | N | L | A | T | W | A | T | E | R | # | N | O | E | # | # | # | # | # |
+| # | # | # | # | U | # | # | # | D | # | # | # | E | O | I | # | P | # | # | S | B | # | E | # | L | # | # | # | # | # |
+| # | # | # | # | P | U | Z | Z | L | E | # | # | J | U | N | G | L | E | S | I | L | V | E | R | # | # | # | # | # | # |
+| # | # | # | # | U | # | # | # | A | # | W | I | N | D | # | S | A | I | N | T | E | # | D | # | # | # | # | # | # | # |
+| # | # | C | I | R | C | L | E | P | # | S | H | E | E | P | I | T | R | A | I | N | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | P | E | A | C | E | F | I | X | M | O | U | S | E | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | L | # | # | P | A | I | N | T | # | # | P | O | C | K | E | T | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | E | # | # | # | C | # | G | # | # | # | O | # | A | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | H | # | L | # | # | # | O | # | T | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | A | # | E | # | # | # | R | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | W | I | N | T | E | R | S | P | A | R | K | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | D | # | # | # | # | # | N | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | L | # | # | # | R | A | G | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | E | # | # | # | # | # | E | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+| # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # | # |
+Choose an option:
+1. Robot Paths
+2. The Human Pyramid
+3. Parenthesis Validation
+4. Queens Battle
+5. Crossword Generator
+6. Exit
+Goodbye!
